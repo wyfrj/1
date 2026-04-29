@@ -5,18 +5,36 @@
     <script type="text/javascript" charset="utf-8" src="https://cdn.zwplayer.cn/v3/zwplayer/zwplayer.js"></script>
 </head>
 <body>
+<button id="switchVideoBtn" style="display:block; margin: 12px auto; padding: 8px 14px; font-size: 14px; cursor: pointer;">切换视频</button>
 <div id="mse" style="width: 800px; height: 450px; margin: 0 auto;"></div>
 <script type="text/javascript">
+    var originalUrl = 'https://upos-sz-mirrorcos.bilivideo.com/upgcxcode/47/53/781525347/781525347-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&platform=html5&os=estgoss&trid=7e6b1e5aebd14a4b9b3db318af46e49h&deadline=1777508782&nbs=1&gen=playurlv3&og=ali&oi=795799114&mid=0&upsig=1bb660d7e536d1767a11d9764c860ca1&uparams=e,uipk,platform,os,trid,deadline,nbs,gen,og,oi,mid&bvc=vod&nettype=0&bw=422947&agrr=1&buvid=&build=0&dl=0&f=h_0_0&orderid=0,1';
+    var alternateUrl = 'https://upos-sz-mirrorcos.bilivideo.com/upgcxcode/76/93/32930269376/32930269376-1-192.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&og=ali&platform=html5&trid=54ef3427b9514d919e1cf32590c5461h&nbs=1&uipk=5&mid=0&gen=playurlv3&oi=795799114&deadline=1777508613&os=estgoss&upsig=f7eb97ec62a7d1c0ef6ea4daac0b6f19&uparams=e,og,platform,trid,nbs,uipk,mid,gen,oi,deadline,os&bvc=vod&nettype=0&bw=318660&buvid=&build=0&dl=0&f=h_0_0&agrr=1&orderid=0,1';
+    var currentUrl = originalUrl;
     var info = {
         playerElm: 'mse',
-        url: 'https://upos-sz-mirrorbd.bilivideo.com/upgcxcode/47/53/781525347/781525347-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&trid=150ce9f8876d46698ca72aa3670d6ffh&oi=795799114&mid=0&deadline=1777470279&nbs=1&os=estgoss&og=ali&platform=html5&uipk=5&gen=playurlv3&upsig=9654052d93895dd9d2f0dec46e51930e&uparams=e,trid,oi,mid,deadline,nbs,os,og,platform,uipk,gen&bvc=vod&nettype=0&bw=422947&dl=0&f=h_0_0&agrr=0&buvid=&build=0&orderid=0,1',
+        url: currentUrl,
         infoButton: true,
         optionButton: true,
         snapshotButton: true,
         controlbar: true,
         autoplay: true,
     };
-    new ZWPlayer(info);
+
+    function createPlayer(url) {
+        var container = document.getElementById('mse');
+        container.innerHTML = '';
+        info.url = url;
+        new ZWPlayer(info);
+    }
+
+    document.getElementById('switchVideoBtn').addEventListener('click', function () {
+        currentUrl = currentUrl === originalUrl ? alternateUrl : originalUrl;
+        this.textContent = currentUrl === alternateUrl ? '切换回原视频' : '切换视频';
+        createPlayer(currentUrl);
+    });
+
+    createPlayer(currentUrl);
 </script>
 </body>
 </html>
